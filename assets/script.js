@@ -2,100 +2,168 @@
   const cfg = window.RESPONSE_CONFIG || {};
 
   const stageReceipt = document.getElementById("stageReceipt");
-  const stageVow = document.getElementById("stageVow");
-  const stageReveal = document.getElementById("stageReveal");
+  const stageStory1 = document.getElementById("stageStory1");
+  const stageStory3 = document.getElementById("stageStory3");
 
-  const beginBtn = document.getElementById("beginBtn");
-  const softBtn = document.getElementById("softBtn");
-  const softMsg = document.getElementById("softMsg");
+  const unsealBtn = document.getElementById("unsealBtn");
+  const shyBtn = document.getElementById("shyBtn");
+  const receiptNote = document.getElementById("receiptNote");
 
+  const backFrom1Btn = document.getElementById("backFrom1Btn");
+  const switchTo3Btn = document.getElementById("switchTo3Btn");
+
+  const nextBtn = document.getElementById("nextBtn");
   const backBtn = document.getElementById("backBtn");
-  const submitVowBtn = document.getElementById("submitVowBtn");
+  const resetBtn = document.getElementById("resetBtn");
 
-  const a1 = document.getElementById("a1");
-  const a2 = document.getElementById("a2");
-  const a3 = document.getElementById("a3");
+  const q1 = document.getElementById("q1");
+  const q2 = document.getElementById("q2");
+  const q3 = document.getElementById("q3");
+
+  const s1 = document.getElementById("s1");
+  const s2 = document.getElementById("s2");
+  const s3 = document.getElementById("s3");
+  const s4 = document.getElementById("s4");
+
+  const steps = Array.from(document.querySelectorAll(".step"));
+  const mirror = document.getElementById("mirror");
   const err = document.getElementById("err");
 
-  const mirror = document.getElementById("mirror");
-  const result = document.getElementById("result");
-  const restartBtn = document.getElementById("restartBtn");
-
-  const storyBtns = Array.from(document.querySelectorAll(".story"));
+  let step = 1;
 
   function show(which){
     stageReceipt.hidden = which !== "receipt";
-    stageVow.hidden = which !== "vow";
-    stageReveal.hidden = which !== "reveal";
+    stageStory1.hidden = which !== "story1";
+    stageStory3.hidden = which !== "story3";
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  function clean(s){
-    return (s || "").trim();
+  function setStep(n){
+    step = n;
+    s1.hidden = n !== 1;
+    s2.hidden = n !== 2;
+    s3.hidden = n !== 3;
+    s4.hidden = n !== 4;
+
+    steps.forEach(el => el.classList.toggle("active", el.getAttribute("data-s") === String(n)));
+
+    // focus
+    if (n === 1) setTimeout(() => q1?.focus(), 120);
+    if (n === 2) setTimeout(() => q2?.focus(), 120);
+    if (n === 3) setTimeout(() => q3?.focus(), 120);
   }
 
-  beginBtn?.addEventListener("click", () => {
-    softMsg.textContent = "";
-    show("vow");
-    setTimeout(() => a1?.focus(), 120);
+  function clean(s){ return (s || "").trim(); }
+
+  function escapeHtml(str){
+    return String(str)
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
+  }
+
+  // RECEIPT actions
+  unsealBtn?.addEventListener("click", () => {
+    receiptNote.textContent = cfg.receiptNoteUnseal || "";
+    show("story3");
+    err.textContent = "";
+    setStep(1);
   });
 
-  softBtn?.addEventListener("click", () => {
-    softMsg.textContent = cfg.shyMessage || "Okay. But I’m still listening.";
+  shyBtn?.addEventListener("click", () => {
+    receiptNote.textContent = cfg.receiptNoteShy || "";
+    show("story1");
+  });
+
+  // STORY 1 actions
+  backFrom1Btn?.addEventListener("click", () => show("receipt"));
+  switchTo3Btn?.addEventListener("click", () => {
+    show("story3");
+    err.textContent = "";
+    setStep(1);
+  });
+
+  // STORY 3 stepper actions
+  nextBtn?.addEventListener("click", () => {
+    err.textContent = "";
+
+    if (step === 1){
+      if (!clean(q1.value)){
+        err.textContent = cfg.validationMissing || "Fill it in.";
+        return;
+      }
+      setStep(2);
+      return;
+    }
+
+    if (step === 2){
+      if (!clean(q2.value)){
+        err.textContent = cfg.validationMissing || "Fill it in.";
+        return;
+      }
+      setStep(3);
+      return;
+    }
+
+    if (step === 3){
+      if (!clean(q3.value)){
+        err.textContent = cfg.validationMissing || "Fill it in.";
+        return;
+      }
+
+      // Build mirror & reveal
+      const v1 = escapeHtml(clean(q1.value));
+      const v2 = escapeHtml(clean(q2.value));
+      const v3 = escapeHtml(clean(q3.value));
+
+      mirror.innerHTML = `
+        <strong>Noted.</strong><br/>
+        With me, you are most <strong>${v1}</strong>.<br/>
+        Last time, you felt <strong>${v2}</strong>.<br/>
+        Next time, you want <strong>${v3}</strong>.
+      `;
+
+      // Optional line override from config (simple)
+      const comeHereLine = cfg.comeHereLine || "";
+      if (comeHereLine){
+        // Inject it into the existing paragraph if present
+        // (We keep this minimal: just replace the text node by finding the last copy paragraph in s4.)
+        const paras = s4.querySelectorAll(".copy");
+        const last = paras[paras.length - 1];
+        if (last) last.textContent = comeHereLine;
+      }
+
+      setStep(4);
+      nextBtn.textContent = "Done";
+      return;
+    }
+
+    if (step === 4){
+      // stay put
+      return;
+    }
   });
 
   backBtn?.addEventListener("click", () => {
     err.textContent = "";
-    show("receipt");
-  });
-
-  submitVowBtn?.addEventListener("click", () => {
-    err.textContent = "";
-    const v1 = clean(a1.value);
-    const v2 = clean(a2.value);
-    const v3 = clean(a3.value);
-
-    if (!v1 || !v2 || !v3){
-      err.textContent = (cfg.validation && cfg.validation.missing) || "Fill all three.";
-      return;
+    if (step > 1){
+      setStep(step - 1);
+      nextBtn.textContent = "Next";
+    } else {
+      show("receipt");
     }
-
-    mirror.innerHTML = `
-      <strong>Noted.</strong><br/>
-      You: “With you, I am most <strong>${escapeHtml(v1)}</strong>.”<br/>
-      You: “Last time, I felt <strong>${escapeHtml(v2)}</strong>.”<br/>
-      You: “Next time, I want <strong>${escapeHtml(v3)}</strong>.”
-    `;
-
-    result.textContent = "Choose a story. I’ll comply. (Probably.)";
-    show("reveal");
   });
 
-  storyBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-      const id = btn.getAttribute("data-story");
-      const text = (cfg.storyResult && cfg.storyResult[id]) || "Confirmed.";
-      result.textContent = text;
-    });
-  });
-
-  restartBtn?.addEventListener("click", () => {
-    // reset
-    a1.value = ""; a2.value = ""; a3.value = "";
+  resetBtn?.addEventListener("click", () => {
+    q1.value = ""; q2.value = ""; q3.value = "";
     err.textContent = "";
-    softMsg.textContent = "";
-    result.textContent = "";
+    receiptNote.textContent = "";
+    nextBtn.textContent = "Next";
     show("receipt");
   });
 
-  function escapeHtml(str){
-    return String(str)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-  }
-
+  // Init
   show("receipt");
 })();
