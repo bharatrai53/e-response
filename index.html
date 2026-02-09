@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sealed Artifact — Key Exchange Required</title>
+  <meta name="description" content="Run pipeline. Exchange key. Decrypt intentions." />
+  <link rel="stylesheet" href="./assets/style.css" />
+</head>
+<body>
+  <main class="wrap">
+    <!-- TOP BAR -->
+    <header class="top">
+      <div class="brand">
+        <div class="dot"></div>
+        <div>
+          <div class="kicker">romance ops</div>
+          <div class="title">Sealed Artifact Portal</div>
+        </div>
+      </div>
+      <div class="meta">
+        <span class="chip">env: prod</span>
+        <span class="chip">region: santa-monica</span>
+        <span class="chip">status: <span id="statusText">idle</span></span>
+      </div>
+    </header>
+
+    <!-- STAGE 1: PIPELINE -->
+    <section class="card" id="stagePipeline">
+      <div class="cardHead">
+        <h1>Pipeline</h1>
+        <p class="sub">You asked for my true intentions. Fine. But we’re doing this properly.</p>
+      </div>
+
+      <div class="pipeline">
+        <ol class="steps" id="steps">
+          <li data-step="checkout"><span class="badge">1</span><span class="label">checkout: <span class="mono">bharat/valentine-hotfix</span></span><span class="mark" aria-hidden="true"></span></li>
+          <li data-step="deps"><span class="badge">2</span><span class="label">install deps: <span class="mono">charm@latest</span></span><span class="mark" aria-hidden="true"></span></li>
+          <li data-step="tests"><span class="badge">3</span><span class="label">unit tests: <span class="mono">banter.spec</span></span><span class="mark" aria-hidden="true"></span></li>
+          <li data-step="integrations"><span class="badge">4</span><span class="label">integration: <span class="mono">eye-contact + proximity</span></span><span class="mark" aria-hidden="true"></span></li>
+          <li data-step="deploy"><span class="badge">5</span><span class="label">deploy: <span class="mono">Santa Monica (prod)</span></span><span class="mark" aria-hidden="true"></span></li>
+          <li data-step="artifact"><span class="badge">6</span><span class="label">artifact: <span class="mono">sealed-letter.enc</span></span><span class="mark" aria-hidden="true"></span></li>
+        </ol>
+
+        <div class="right">
+          <div class="panel">
+            <div class="panelTitle">Controls</div>
+            <button class="btn" id="runBtn">Run pipeline</button>
+            <button class="btn secondary" id="resetBtn" disabled>Reset</button>
+            <div class="divider"></div>
+            <div class="fine">
+              <div><span class="mono">note:</span> This is intentionally lightweight—no overbuild, just intent.</div>
+              <div><span class="mono">hint:</span> Your key is a shared secret. You’ll know it.</div>
+            </div>
+          </div>
+
+          <div class="panel" id="artifactPanel" hidden>
+            <div class="panelTitle">Output</div>
+            <div class="artifact">
+              <div class="file">
+                <div class="fileIcon" aria-hidden="true">⬚</div>
+                <div>
+                  <div class="fileName"><span class="mono">sealed-letter.enc</span></div>
+                  <div class="fileSub">Action required: key exchange</div>
+                </div>
+              </div>
+              <button class="btn" id="continueBtn">Proceed to key exchange</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="cardFoot">
+        <div class="small">
+          SLA: “no lady waiting” — enforced. Observability: smiles/min monitored. Rollback: always available.
+        </div>
+      </footer>
+    </section>
+
+    <!-- STAGE 2: KEY EXCHANGE -->
+    <section class="card" id="stageKey" hidden>
+      <div class="cardHead">
+        <h1>Key Exchange</h1>
+        <p class="sub">Enter the key to decrypt the letter. If you forget it, you may… request assistance.</p>
+      </div>
+
+      <div class="keyGrid">
+        <div class="panel">
+          <div class="panelTitle">Enter key</div>
+          <label class="srOnly" for="keyInput">Decryption key</label>
+          <input id="keyInput" class="input" autocomplete="off" placeholder="lowercase • no spaces (example: montana-ocean)" />
+          <div class="row">
+            <button class="btn" id="decryptBtn">Decrypt</button>
+            <button class="btn secondary" id="backBtn">Back</button>
+          </div>
+          <p class="fine" id="keyError" role="status" aria-live="polite"></p>
+        </div>
+
+        <div class="panel">
+          <div class="panelTitle">Hints</div>
+          <div class="hint">
+            <button class="hintBtn" data-h="1">hint 1</button>
+            <button class="hintBtn" data-h="2">hint 2</button>
+            <button class="hintBtn" data-h="3">hint 3</button>
+          </div>
+          <div class="hintBox" id="hintBox">
+            Click a hint. I’ll pretend I’m not enjoying this.
+          </div>
+          <div class="divider"></div>
+          <div class="fine">
+            “Forgot key?” Text me: <span class="mono">I surrender</span> (and I will be smug about it).
+          </div>
+        </div>
+      </div>
+
+      <footer class="cardFoot">
+        <div class="small">
+          Security model: shared-secret + mutual enjoyment. Threat model: your smile.
+        </div>
+      </footer>
+    </section>
+
+    <!-- STAGE 3: DECRYPTED LETTER -->
+    <section class="card" id="stageLetter" hidden>
+      <div class="seal" aria-hidden="true">
+        <div class="sealInner">UNSEALED</div>
+      </div>
+
+      <div class="cardHead">
+        <h1>Decrypted</h1>
+        <p class="sub"><span class="mono">classification:</span> intentions • unredacted</p>
+      </div>
+
+      <article class="letter">
+        <h2 class="script">Dear Ms. Karki,</h2>
+
+        <p>
+          Your suspicion is correct. February 14th was not a coincidence — it was a decision.
+        </p>
+
+        <p>
+          My intentions are to spoil you with precision, make you laugh until you forget to check the time,
+          and stand close enough that “personal time block” stops sounding like a calendar term.
+        </p>
+
+        <p>
+          This is not a meeting. It’s a claim — <em>with consent and an exit button</em>.
+          (But I’m hoping you don’t use it.)
+        </p>
+
+        <div class="callout">
+          Now choose the story we’re going with:
+        </div>
+
+        <div class="choices" role="group" aria-label="Choose a story">
+          <button class="choice" data-story="A">
+            <div class="choiceTitle">Story A — Professional</div>
+            <div class="choiceBody">“Dinner in Santa Monica. Completely normal. Nothing to see here.”</div>
+          </button>
+          <button class="choice" data-story="B">
+            <div class="choiceTitle">Story B — Truthful</div>
+            <div class="choiceBody">“Valentine’s date. You look unfair. I lose focus.”</div>
+          </button>
+          <button class="choice" data-story="C">
+            <div class="choiceTitle">Story C — Dangerous</div>
+            <div class="choiceBody">“You pick the vibe. I execute. Timeline may slip.”</div>
+          </button>
+        </div>
+
+        <div class="result" id="storyResult" aria-live="polite"></div>
+
+        <p class="sig">
+          Warm regards (and some very specific plans),<br />
+          <span class="script">Bharat</span>
+        </p>
+      </article>
+
+      <div class="divider"></div>
+
+      <section class="appendix">
+        <h3>Appendix A — Exhibits (optional)</h3>
+        <p class="fine">
+          Replace these placeholders with a tasteful collage: Santa Monica/ocean vibe, reservation confirmation (blur details),
+          a classy fit check, something she loves. Keep it fun, not risky.
+        </p>
+
+        <div class="collage" aria-label="Exhibits collage">
+          <div class="tile t1"><span>Exhibit A</span></div>
+          <div class="tile t2"><span>Exhibit B</span></div>
+          <div class="tile t3"><span>Exhibit C</span></div>
+          <div class="tile t4"><span>Exhibit D</span></div>
+          <div class="tile t5"><span>Exhibit E</span></div>
+          <div class="tile t6"><span>Exhibit F</span></div>
+        </div>
+      </section>
+
+      <footer class="cardFoot">
+        <div class="small">
+          PS: You asked for “true intentions.” I’m answering — and then I’m taking you out.
+        </div>
+      </footer>
+    </section>
+
+    <p class="footerNote">
+      Tip: edit <span class="mono">assets/config.js</span> to set the key + hints + wording.
+    </p>
+  </main>
+
+  <script src="./assets/config.js"></script>
+  <script src="./assets/script.js"></script>
+</body>
+</html>
