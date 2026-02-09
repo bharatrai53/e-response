@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Re: Personal Time Block — Clarification Requested</title>
-  <meta name="description" content="A sealed reply. Two stories. One honest." />
+  <meta name="description" content="Operational is the beginning. Truth is the point." />
   <link rel="stylesheet" href="./assets/style.css" />
 </head>
 <body>
@@ -17,7 +17,7 @@
           <div class="kicker">Filed correspondence · February 14th</div>
           <h1>Re: “Express your true intentions?”</h1>
           <p class="sub">
-            Ms. Karki — inquiry received. And yes… I’m aware of the implications.
+            Ms. Karki — inquiry received. You also asked which story we’re going with.
           </p>
         </header>
 
@@ -31,65 +31,67 @@
           </div>
 
           <p class="copy">
-            Very well. You want my intentions—<em>formally</em>.
-            Choose how you want the truth delivered.
+            Let’s begin where we’re “supposed” to begin.
           </p>
 
           <div class="cta">
-            <button class="btn" id="unsealBtn">Unseal</button>
-            <button class="btn secondary" id="shyBtn">I’m shy today</button>
+            <button class="btn" id="goOperationalBtn">Proceed: Operational</button>
+            <button class="btn secondary" id="goNeedBtn">Go to what you need</button>
           </div>
 
           <p class="fine" id="receiptNote" aria-live="polite"></p>
         </div>
       </section>
 
-      <!-- STAGE 1: STORY 1 (BORING ON PURPOSE) -->
-      <section id="stageStory1" hidden>
+      <!-- STAGE 1: OPERATIONAL (INTENTIONALLY BORING) -->
+      <section id="stageOperational" hidden>
         <header class="head">
           <div class="kicker">Story 1 · purely operational</div>
           <h2>Operational Mode</h2>
-          <p class="sub">As requested. Clean. Professional. Unreasonably boring.</p>
+          <p class="sub">Clean. Professional. Exactly what we both know this isn’t.</p>
         </header>
 
         <div class="body">
           <div class="boringBox">
-            <div class="rowKV"><span>Objective</span><strong>Spend time together</strong></div>
+            <div class="rowKV"><span>Objective</span><strong>Time together</strong></div>
             <div class="rowKV"><span>Date</span><strong>February 14</strong></div>
             <div class="rowKV"><span>Location</span><strong>Santa Monica</strong></div>
-            <div class="rowKV"><span>Risk</span><strong>Low (allegedly)</strong></div>
-            <div class="rowKV"><span>Notes</span><strong>None (this is the lie)</strong></div>
+            <div class="rowKV"><span>Scope</span><strong>Standard</strong></div>
+            <div class="rowKV"><span>Notes</span><strong>N/A</strong></div>
           </div>
 
           <p class="copy">
-            We will pretend this is purely a scheduled time block.
-            Feelings will be handled off-record.
+            This is how things start. Not how they end.
           </p>
 
-          <p class="fine">
-            If at any moment you decide you’re not shy anymore… you know where the other story is.
+          <p class="copy subtle">
+            You and I both know this isn’t what you’re looking for.
+            There’s a difference between what you <em>want</em>… and what you <em>need</em>.
           </p>
 
           <div class="cta">
-            <button class="btn" id="switchTo3Btn">Switch to Story 3</button>
-            <button class="btn secondary" id="backFrom1Btn">Back</button>
+            <button class="btn" id="unsealTruthBtn">Unseal: Truthful Mode</button>
+            <button class="btn secondary" id="backFromOperationalBtn">Back</button>
           </div>
+
+          <p class="fine">
+            (If you click “Unseal,” you’re admitting you want the real answer.)
+          </p>
         </div>
       </section>
 
-      <!-- STAGE 2: STORY 3 (STEP-BY-STEP UNPACKING) -->
-      <section id="stageStory3" hidden>
+      <!-- STAGE 2: TRUTHFUL MODE (QUESTIONS -> INTENTIONS) -->
+      <section id="stageTruth" hidden>
         <header class="head">
-          <div class="kicker">Story 3 · unnecessarily honest</div>
-          <h2>Unseal: step by step.</h2>
+          <div class="kicker">Truthful mode · unsealed</div>
+          <h2>Alright. No pretending.</h2>
           <p class="sub">
-            No pretending. Just you, me, and the part of the truth that makes your pulse behave differently.
+            You wanted my intentions. Before I say them, I want you to look directly at yours.
           </p>
         </header>
 
         <div class="body">
-          <!-- Stepper -->
-          <div class="stepper" aria-label="Story 3 steps">
+          <div class="stepper" aria-label="Truth steps">
             <div class="step active" data-s="1"><span class="dot"></span><span>1</span></div>
             <div class="step" data-s="2"><span class="dot"></span><span>2</span></div>
             <div class="step" data-s="3"><span class="dot"></span><span>3</span></div>
@@ -97,51 +99,55 @@
           </div>
 
           <!-- Step 1 -->
-          <section class="panel" id="s1">
-            <div class="panelTitle">Step 1 — The version of you I want</div>
+          <section class="panel" id="t1">
+            <div class="panelTitle">Step 1 — The last time</div>
             <p class="copy">
-              Last time you were here, you felt more open and present than ever.
-              I’m not letting that be a one-time miracle.
+              Don’t overthink it. First honest answer.
             </p>
-            <label class="lbl" for="q1">With me, you are most…</label>
-            <input class="inp" id="q1" placeholder="present / soft / bold / unguarded…" autocomplete="off" />
+            <label class="lbl" for="x1">Last time we were together, what did you feel most?</label>
+            <input class="inp" id="x1" placeholder="seen / calm / electric / safe / wanted…" autocomplete="off" />
           </section>
 
           <!-- Step 2 -->
-          <section class="panel" id="s2" hidden>
-            <div class="panelTitle">Step 2 — Name the feeling</div>
+          <section class="panel" id="t2" hidden>
+            <div class="panelTitle">Step 2 — Want vs need</div>
             <p class="copy">
-              Tell me what you felt last time—because I intend to recreate it.
-              And then take it further.
+              This is the part people skip. Don’t.
             </p>
-            <label class="lbl" for="q2">Last time, you felt…</label>
-            <input class="inp" id="q2" placeholder="seen / safe / electric / adored…" autocomplete="off" />
+            <label class="lbl" for="x2">In one word: what do you want right now?</label>
+            <input class="inp" id="x2" placeholder="fun / distraction / romance / certainty / closeness…" autocomplete="off" />
+            <label class="lbl" for="x3">In one word: what do you need?</label>
+            <input class="inp" id="x3" placeholder="peace / honesty / safety / depth / us…" autocomplete="off" />
           </section>
 
           <!-- Step 3 -->
-          <section class="panel" id="s3" hidden>
-            <div class="panelTitle">Step 3 — The next level</div>
+          <section class="panel" id="t3" hidden>
+            <div class="panelTitle">Step 3 — The admission</div>
             <p class="copy">
-              Give me one honest want. Small or dangerous. Your choice.
+             Say it plainly.
             </p>
-            <label class="lbl" for="q3">Next time, you want…</label>
-            <input class="inp" id="q3" placeholder="a long hug / a slow kiss / your hand in mine…" autocomplete="off" />
-            <p class="fine">
-              Only if you want it. You can always request edits.
-            </p>
+            <label class="lbl" for="x4">What are you afraid I’m going to do… if you let yourself feel it?</label>
+            <input class="inp" id="x4" placeholder="leave / get serious / ruin your calm / change things…" autocomplete="off" />
           </section>
 
-          <!-- Step 4: Reveal -->
-          <section class="panel" id="s4" hidden>
-            <div class="panelTitle">Step 4 — Intentions, unredacted</div>
+          <!-- Step 4: Intentions -->
+          <section class="panel" id="t4" hidden>
+            <div class="panelTitle">Step 4 — My answer (finally)</div>
 
             <div class="mirror" id="mirror"></div>
 
             <div class="intent">
-              <p><strong>I want you near.</strong></p>
-              <p><strong>I want to undo your composure a little.</strong></p>
-              <p><strong>I want you open and safe at the same time.</strong></p>
-              <p><strong>I want to be your peace and your trouble.</strong></p>
+              <p class="copy">
+                Here it is — clean and real:
+              </p>
+
+              <p><strong>I want you close.</strong></p>
+              <p><strong>I want your heart open with me.</strong></p>
+              <p><strong>I want to earn more of you than I had last time.</strong></p>
+
+              <p class="copy">
+                Not in theory. Not in hints. Not in “operational” language.
+              </p>
 
               <div class="anchor">
                 <p><strong>Only if you want it.</strong></p>
@@ -150,17 +156,12 @@
               </div>
 
               <p class="copy">
-                And about your question—whether we acknowledge what this looks like:
-                we can pretend it’s operational… right up until the moment I see you.
-              </p>
-
-              <p class="copy">
-                If you want to take this to the next level, come here.
-                I’ll take care of the rest—gently, and properly.
+                If you’re asking what this is… it’s me choosing you.
+                And asking you to take one step in my direction.
               </p>
 
               <p class="fine">
-                Your move, Ms. Karki. 😉
+                Your move, Ms. Karki.
               </p>
             </div>
           </section>
