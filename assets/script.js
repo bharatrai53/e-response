@@ -1,129 +1,101 @@
 (() => {
-    const cfg = window.PORTAL_CONFIG || { key: "change-me", hints: {}, storyReplies: {} };
-  
-    const statusText = document.getElementById("statusText");
-  
-    const stagePipeline = document.getElementById("stagePipeline");
-    const stageKey = document.getElementById("stageKey");
-    const stageLetter = document.getElementById("stageLetter");
-  
-    const runBtn = document.getElementById("runBtn");
-    const resetBtn = document.getElementById("resetBtn");
-    const continueBtn = document.getElementById("continueBtn");
-    const artifactPanel = document.getElementById("artifactPanel");
-  
-    const steps = Array.from(document.querySelectorAll("#steps li"));
-  
-    const keyInput = document.getElementById("keyInput");
-    const decryptBtn = document.getElementById("decryptBtn");
-    const backBtn = document.getElementById("backBtn");
-    const keyError = document.getElementById("keyError");
-  
-    const hintBox = document.getElementById("hintBox");
-    const hintBtns = Array.from(document.querySelectorAll(".hintBtn"));
-  
-    const storyButtons = Array.from(document.querySelectorAll(".choice"));
-    const storyResult = document.getElementById("storyResult");
-  
-    // Helpers
-    const sleep = (ms) => new Promise(r => setTimeout(r, ms));
-    const setStatus = (s) => { statusText.textContent = s; };
-  
-    function resetPipelineUI(){
-      steps.forEach(li => li.classList.remove("running","done","fail"));
-      artifactPanel.hidden = true;
-      continueBtn?.blur();
-      runBtn.disabled = false;
-      resetBtn.disabled = true;
-      setStatus("idle");
+  const cfg = window.RESPONSE_CONFIG || {};
+
+  const stageReceipt = document.getElementById("stageReceipt");
+  const stageVow = document.getElementById("stageVow");
+  const stageReveal = document.getElementById("stageReveal");
+
+  const beginBtn = document.getElementById("beginBtn");
+  const softBtn = document.getElementById("softBtn");
+  const softMsg = document.getElementById("softMsg");
+
+  const backBtn = document.getElementById("backBtn");
+  const submitVowBtn = document.getElementById("submitVowBtn");
+
+  const a1 = document.getElementById("a1");
+  const a2 = document.getElementById("a2");
+  const a3 = document.getElementById("a3");
+  const err = document.getElementById("err");
+
+  const mirror = document.getElementById("mirror");
+  const result = document.getElementById("result");
+  const restartBtn = document.getElementById("restartBtn");
+
+  const storyBtns = Array.from(document.querySelectorAll(".story"));
+
+  function show(which){
+    stageReceipt.hidden = which !== "receipt";
+    stageVow.hidden = which !== "vow";
+    stageReveal.hidden = which !== "reveal";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function clean(s){
+    return (s || "").trim();
+  }
+
+  beginBtn?.addEventListener("click", () => {
+    softMsg.textContent = "";
+    show("vow");
+    setTimeout(() => a1?.focus(), 120);
+  });
+
+  softBtn?.addEventListener("click", () => {
+    softMsg.textContent = cfg.shyMessage || "Okay. But I’m still listening.";
+  });
+
+  backBtn?.addEventListener("click", () => {
+    err.textContent = "";
+    show("receipt");
+  });
+
+  submitVowBtn?.addEventListener("click", () => {
+    err.textContent = "";
+    const v1 = clean(a1.value);
+    const v2 = clean(a2.value);
+    const v3 = clean(a3.value);
+
+    if (!v1 || !v2 || !v3){
+      err.textContent = (cfg.validation && cfg.validation.missing) || "Fill all three.";
+      return;
     }
-  
-    async function runPipeline(){
-      resetPipelineUI();
-      runBtn.disabled = true;
-      resetBtn.disabled = true;
-      setStatus("running");
-  
-      for (let i=0;i<steps.length;i++){
-        const li = steps[i];
-        li.classList.add("running");
-        await sleep(650 + Math.random()*450);
-        li.classList.remove("running");
-        li.classList.add("done");
-      }
-  
-      await sleep(250);
-      artifactPanel.hidden = false;
-      resetBtn.disabled = false;
-      setStatus("artifact-ready");
-    }
-  
-    function showStage(which){
-      stagePipeline.hidden = which !== "pipeline";
-      stageKey.hidden = which !== "key";
-      stageLetter.hidden = which !== "letter";
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  
-    function normalizeKey(s){
-      return (s || "").trim().toLowerCase();
-    }
-  
-    function decrypt(){
-      keyError.textContent = "";
-      const entered = normalizeKey(keyInput.value);
-      const expected = normalizeKey(cfg.key);
-  
-      if (!expected || expected === "change-me"){
-        keyError.textContent = "⚠️ Config not set. Edit assets/config.js and set PORTAL_CONFIG.key first.";
-        return;
-      }
-  
-      if (entered !== expected){
-        keyError.textContent = "Decryption failed. That key feels… incorrect. Try again (or request assistance).";
-        keyInput.focus();
-        return;
-      }
-  
-      setStatus("decrypted");
-      showStage("letter");
-      storyResult.textContent = "Select a story. I’ll comply. (Probably.)";
-    }
-  
-    // Wire up events
-    runBtn?.addEventListener("click", runPipeline);
-    resetBtn?.addEventListener("click", resetPipelineUI);
-  
-    continueBtn?.addEventListener("click", () => {
-      showStage("key");
-      setStatus("key-exchange");
-      keyInput.focus();
+
+    mirror.innerHTML = `
+      <strong>Noted.</strong><br/>
+      You: “With you, I am most <strong>${escapeHtml(v1)}</strong>.”<br/>
+      You: “Last time, I felt <strong>${escapeHtml(v2)}</strong>.”<br/>
+      You: “Next time, I want <strong>${escapeHtml(v3)}</strong>.”
+    `;
+
+    result.textContent = "Choose a story. I’ll comply. (Probably.)";
+    show("reveal");
+  });
+
+  storyBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.getAttribute("data-story");
+      const text = (cfg.storyResult && cfg.storyResult[id]) || "Confirmed.";
+      result.textContent = text;
     });
-  
-    backBtn?.addEventListener("click", () => showStage("pipeline"));
-  
-    decryptBtn?.addEventListener("click", decrypt);
-    keyInput?.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") decrypt();
-    });
-  
-    hintBtns.forEach(btn => {
-      btn.addEventListener("click", () => {
-        const n = btn.getAttribute("data-h");
-        hintBox.textContent = (cfg.hints && cfg.hints[n]) ? cfg.hints[n] : "No hint configured.";
-      });
-    });
-  
-    storyButtons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        const s = btn.getAttribute("data-story");
-        const reply = (cfg.storyReplies && cfg.storyReplies[s]) || "Acknowledged.";
-        storyResult.textContent = reply;
-      });
-    });
-  
-    // Init
-    resetPipelineUI();
-    showStage("pipeline");
-  })();
-  
+  });
+
+  restartBtn?.addEventListener("click", () => {
+    // reset
+    a1.value = ""; a2.value = ""; a3.value = "";
+    err.textContent = "";
+    softMsg.textContent = "";
+    result.textContent = "";
+    show("receipt");
+  });
+
+  function escapeHtml(str){
+    return String(str)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  show("receipt");
+})();
