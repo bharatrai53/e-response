@@ -3,22 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sejal Karki — Santa Monica Hold</title>
-
-  <meta name="description" content="A scheduled time block in Santa Monica. Organizer: Bharat Rai. Attendee: Sejal Karki." />
+  <title>Santa Monica — File SK/BR</title>
+  <meta name="description" content="A classified time block in Santa Monica." />
   <meta name="theme-color" content="#f2e8dc" />
-
-  <!-- Optional social cards (add assets/og.png if you want) -->
-  <!--
-  <meta property="og:title" content="Santa Monica Hold" />
-  <meta property="og:description" content="A scheduled time block (purely operational, of course)." />
-  <meta property="og:image" content="assets/og.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  -->
-
-  <!-- Optional favicon (add assets/favicon.svg if you want) -->
-  <!-- <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" /> -->
-
   <style>
     :root{
       --paper:#fbf6ee;
@@ -27,6 +14,8 @@
       --rule:rgba(31,27,22,.18);
       --accent:#8b6b4f;
       --shadow: 0 18px 50px rgba(0,0,0,.12);
+      --chip: rgba(255,255,255,.45);
+      --danger: rgba(139,107,79,.16);
     }
     *{box-sizing:border-box}
     body{
@@ -43,13 +32,13 @@
         #f2e8dc;
       font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
     }
-    .card{
-      width:min(920px, 100%);
-      background:linear-gradient(180deg, rgba(255,255,255,.62), rgba(255,255,255,.25)), var(--paper);
-      border:1px solid rgba(31,27,22,.14);
+    .wrap{
+      width:min(980px, 100%);
       border-radius:22px;
-      box-shadow: var(--shadow);
       overflow:hidden;
+      border:1px solid rgba(31,27,22,.14);
+      background:linear-gradient(180deg, rgba(255,255,255,.62), rgba(255,255,255,.25)), var(--paper);
+      box-shadow: var(--shadow);
       position:relative;
     }
     .grain:before{
@@ -59,102 +48,54 @@
       mix-blend-mode:multiply;
       pointer-events:none;
     }
+
     header{
-      padding:40px 34px 26px;
+      padding:30px 34px 18px;
       border-bottom:1px solid var(--rule);
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:16px;
     }
-    .kicker{
-      letter-spacing:.18em;
+    .filemeta .k{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      letter-spacing:.16em;
       text-transform:uppercase;
       font-size:12px;
       color:var(--muted);
     }
-    h1{
-      margin:10px 0 6px;
-      font-size:40px;
-      line-height:1.08;
-      font-weight:750;
+    .filemeta h1{
+      margin:10px 0 0;
+      font-size:34px;
+      line-height:1.1;
+      font-weight:780;
     }
-    .sub{
-      margin:0;
-      color:var(--muted);
-      font-size:16px;
-      line-height:1.65;
-      max-width:70ch;
-      white-space:pre-line;
-    }
-    .badgeRow{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top:18px;
-    }
-    .badge{
+    .chips{
+      margin-top:12px;
+      display:flex; flex-wrap:wrap; gap:10px;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       font-size:12px;
-      letter-spacing:.02em;
+    }
+    .chip{
+      border:1px solid rgba(31,27,22,.20);
+      background:var(--chip);
       padding:8px 10px;
       border-radius:999px;
-      border:1px solid rgba(31,27,22,.20);
-      background:rgba(255,255,255,.45);
       color:rgba(31,27,22,.88);
     }
-
-    main{
-      padding:28px 34px 34px;
-      display:grid;
-      grid-template-columns: 1.25fr .75fr;
-      gap:22px;
-    }
-    @media (max-width: 860px){ main{grid-template-columns:1fr} }
-
-    .panel{
-      border:1px solid rgba(31,27,22,.14);
-      border-radius:18px;
-      background:rgba(255,255,255,.35);
-      padding:18px 18px 14px;
-    }
-    .panel h2{
-      margin:0 0 10px;
-      font-size:14px;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      color:var(--muted);
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    }
-
-    .timeline{display:flex;flex-direction:column;gap:14px;margin-top:6px}
-    .item{
-      display:grid;
-      grid-template-columns: 110px 1fr;
-      gap:14px;
-      padding-top:10px;
-      border-top:1px dashed rgba(31,27,22,.18);
-    }
-    .item:first-child{border-top:none;padding-top:0}
-    .time{
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    .mono{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
       font-size:12px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      color:rgba(31,27,22,.72);
-      padding-top:2px;
-      white-space:nowrap;
+      color:rgba(31,27,22,.75);
     }
-    .title{margin:0;font-size:18px;font-weight:700}
-    .desc{margin:6px 0 0;color:var(--muted);font-size:14px;line-height:1.55}
-    .fine{margin:10px 0 0;font-size:12px;color:rgba(111,98,87,.92);line-height:1.55}
 
-    .details{display:flex;flex-direction:column;gap:14px}
-    .kv{
-      display:flex;justify-content:space-between;gap:12px;
-      padding:10px 0;border-bottom:1px solid rgba(31,27,22,.10);
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      font-size:13px;color:rgba(31,27,22,.88);
+    .right{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:10px;
     }
-    .kv span:first-child{color:rgba(111,98,87,.95)}
     .stamp{
-      margin-top:10px;
       border:1px solid rgba(139,107,79,.55);
       color:rgba(139,107,79,1);
       display:inline-flex;
@@ -165,27 +106,12 @@
       letter-spacing:.12em;
       text-transform:uppercase;
       background:rgba(255,255,255,.35);
-      align-self:flex-start;
     }
-
-    footer{
-      padding:18px 34px 28px;
-      border-top:1px solid var(--rule);
-      display:flex;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-    }
-    .smallprint{
-      color:rgba(111,98,87,.95);
-      font-size:12px;
-      line-height:1.55;
-      max-width:66ch;
-    }
-    .cta{
-      display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+    .toggleRow{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size:12px;
+      color:rgba(31,27,22,.88);
     }
     .btn{
       appearance:none;
@@ -201,272 +127,362 @@
       display:inline-flex;
       align-items:center;
       gap:8px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
     .btn.secondary{
       background:rgba(255,255,255,.45);
       color:rgba(31,27,22,.92);
     }
-    .mono{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size:12px;
-      color:rgba(31,27,22,.75);
-    }
-    .divider{height:1px;background:rgba(31,27,22,.10);margin:12px 0}
-
-    .seal{
-      position:absolute;
-      top:18px; right:18px;
-      width:92px; height:92px;
-      border-radius:999px;
-      border:1px solid rgba(31,27,22,.18);
+    .classChip{
+      border:1px solid rgba(31,27,22,.20);
       background:rgba(255,255,255,.35);
-      display:flex; align-items:center; justify-content:center;
-      transform:rotate(8deg);
+      padding:8px 10px;
+      border-radius:999px;
     }
-    .seal span{
-      text-align:center;
+    .classChip b{ letter-spacing:.12em; text-transform:uppercase; font-size:11px; }
+
+    nav{
+      padding:12px 16px;
+      border-bottom:1px solid var(--rule);
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    .tab{
+      border:1px solid rgba(31,27,22,.18);
+      background:rgba(255,255,255,.38);
+      color:rgba(31,27,22,.90);
+      padding:10px 12px;
+      border-radius:12px;
+      cursor:pointer;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      font-size:11px;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      color:rgba(31,27,22,.72);
-      line-height:1.25;
+      font-size:13px;
+      letter-spacing:.02em;
+    }
+    .tab[aria-selected="true"]{
+      background: rgba(31,27,22,.92);
+      color: var(--paper);
+      border-color: rgba(31,27,22,.35);
     }
 
-    /* subtle reveal animation for mode copy */
-    .reveal {
-      transform: translateY(6px);
-      opacity: 0;
-      transition: opacity .35s ease, transform .35s ease;
+    main{
+      padding:22px 34px 28px;
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:18px;
     }
-    .reveal.show {
-      transform: translateY(0);
-      opacity: 1;
+    @media (max-width: 900px){ main{grid-template-columns:1fr} }
+
+    .panel{
+      border:1px solid rgba(31,27,22,.14);
+      border-radius:18px;
+      background:rgba(255,255,255,.35);
+      padding:18px 18px 16px;
+      min-height:240px;
     }
+    .panel h2{
+      margin:0 0 10px;
+      font-size:14px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:var(--muted);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    .content{
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.65;
+      white-space:pre-line;
+      margin:0;
+    }
+    .quote{
+      margin-top:14px;
+      border-left:3px solid rgba(139,107,79,.45);
+      padding-left:12px;
+      background: var(--danger);
+      border-radius:12px;
+      padding:12px 12px 12px 14px;
+      color:rgba(31,27,22,.82);
+      font-size:14px;
+      line-height:1.6;
+      white-space:pre-line;
+    }
+
+    .side h3{
+      margin:0 0 8px;
+      font-size:14px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:var(--muted);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    .kv{
+      display:flex; justify-content:space-between; gap:12px;
+      padding:10px 0;
+      border-bottom:1px solid rgba(31,27,22,.10);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size:13px;
+      color:rgba(31,27,22,.88);
+    }
+    .kv span:first-child{color:rgba(111,98,87,.95)}
+    .actions{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top:14px;
+    }
+    .fine{
+      margin:12px 0 0;
+      font-size:12px;
+      color:rgba(111,98,87,.95);
+      line-height:1.55;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    .divider{height:1px;background:rgba(31,27,22,.10);margin:14px 0}
+    .hide{ display:none; }
   </style>
 </head>
 
 <body>
-  <article class="card grain">
-    <div class="seal" aria-hidden="true"><span>SM<br/>Hold</span></div>
-
+  <div class="wrap grain">
     <header>
-      <div class="kicker">Personal Time Block · Santa Monica</div>
-      <h1>Sejal Karki — you’re booked.</h1>
+      <div class="filemeta">
+        <div class="k">FILE · SANTA MONICA HOLD</div>
+        <h1>Case: SK/BR — February 14</h1>
 
-      <div class="badgeRow">
-        <div class="badge">Organizer: Bharat Rai</div>
-        <div class="badge">Attendee: Sejal Karki</div>
-        <div class="badge">Date: <span class="mono" id="dateBadge">Feb 14</span></div>
-        <div class="badge">Start: <span class="mono" id="timeBadge">3:00 PM PST</span></div>
+        <div class="chips">
+          <div class="chip">Organizer: <span class="mono" id="org">Bharat Rai</span></div>
+          <div class="chip">Attendee: <span class="mono" id="rec">Sejal Karki</span></div>
+          <div class="chip">Start: <span class="mono" id="timeBadge">3:00 PM PST</span></div>
+        </div>
       </div>
 
-      <!-- Mode toggle row -->
-      <div class="badgeRow" style="margin-top:14px">
-        <button class="btn secondary" id="modeBtn" type="button" aria-pressed="false">
-          Mode: Operational
-        </button>
-        <div class="badge" id="modeHint">For compliance purposes.</div>
-      </div>
+      <div class="right">
+        <div class="stamp" id="stamp">PENDING REVIEW</div>
 
-      <!-- Dynamic mode copy -->
-      <p class="sub reveal" id="modeCopy" style="margin-top:14px"></p>
+        <div class="toggleRow">
+          <div class="classChip"><b id="classLabel">CLASSIFIED: OPERATIONAL</b></div>
+          <button class="btn secondary" id="modeBtn" type="button" aria-pressed="false">Toggle</button>
+        </div>
+      </div>
     </header>
+
+    <nav aria-label="Sections">
+      <button class="tab" data-tab="summary" aria-selected="true">Summary</button>
+      <button class="tab" data-tab="evidence" aria-selected="false">Evidence</button>
+      <button class="tab" data-tab="terms" aria-selected="false">Terms</button>
+      <button class="tab" data-tab="rsvp" aria-selected="false">RSVP</button>
+    </nav>
 
     <main>
       <section class="panel">
-        <h2>Itinerary</h2>
+        <h2 id="panelTitle">Summary</h2>
 
-        <div class="timeline">
-          <div class="item">
-            <div class="time">+00:00</div>
-            <div>
-              <p class="title">Arrival + warm start</p>
-              <p class="desc">Coffee or a glass of wine near Montana / Ocean Ave. Easy start, good lighting, no hurry.</p>
-              <p class="fine">Deliverable: Relaxed smile, you letting me stare.</p>
-            </div>
-          </div>
+        <p class="content" id="panelBody"></p>
 
-          <div class="item">
-            <div class="time">+01:00</div>
-            <div>
-              <p class="title">Golden hour interlude</p>
-              <p class="desc">A slow walk toward the ocean. Santa Monica does the background work; we do the rest.</p>
-            </div>
-          </div>
-
-          <div class="item">
-            <div class="time">+02:15</div>
-            <div>
-              <p class="title">Quiet trouble</p>
-              <p class="desc">A small place that makes you lower your voice and stand closer without thinking.</p>
-              <p class="fine">If you reach for something first, I’ll remember.</p>
-            </div>
-          </div>
-
-          <div class="item">
-            <div class="time">+03:15</div>
-            <div>
-              <p class="title">Dinner</p>
-              <p class="desc">Reservation handled. You show up. I’ll be on my best behavior, at first.</p>
-              <p class="fine">If you’re especially distracting, we’ll “forget” the timeline.</p>
-            </div>
-          </div>
-
-          <div class="item">
-            <div class="time">+05:00</div>
-            <div>
-              <p class="title">Last stop</p>
-              <p class="desc">Dessert / nightcap / ocean air.</p>
-              <p class="fine">We’ll call it when the night says so.</p>
-            </div>
-          </div>
-        </div>
+        <div class="quote hide" id="quoteBox"></div>
       </section>
 
-      <aside class="panel">
-        <h2>Booking details</h2>
+      <aside class="panel side">
+        <h3>Booking details</h3>
 
-        <div class="details">
-          <div class="kv"><span>Neighborhood</span><strong>Santa Monica</strong></div>
-          <div class="kv"><span>Dress code</span><strong>Least</strong></div>
-          <div class="kv"><span>Mood</span><strong>Vintage romantic</strong></div>
-          <div class="kv"><span>End time</span><strong>Flexible</strong></div>
-        </div>
-
-        <div class="stamp" id="rsvpStamp">Pending RSVP</div>
+        <div class="kv"><span>Neighborhood</span><strong>Santa Monica</strong></div>
+        <div class="kv"><span>Date</span><strong>Feb 14</strong></div>
+        <div class="kv"><span>End time</span><strong>Flexible</strong></div>
+        <div class="kv"><span>Dress code</span><strong>Dangerous</strong></div>
 
         <div class="divider"></div>
 
-        <p class="fine">
-          Reply with:
-          <span class="mono">1)</span> RSVP yes/no
-          <span class="mono">2)</span> any edits or requests.
+        <div class="actions">
+          <a class="btn" id="approveBtn" href="#">Approve</a>
+          <a class="btn secondary" id="editsBtn" href="#">Request edits</a>
+        </div>
+
+        <p class="fine" id="fineNote">
+          Reply with RSVP yes/no, or a counteroffer. For the record, we may pretend it’s operational.
         </p>
       </aside>
     </main>
-
-    <footer>
-      <div class="smallprint">
-        <strong>Policy:</strong> This is a hold, and you can request edits.
-        We’ll pretend it’s purely operational.
-      </div>
-
-      <div class="cta">
-        <a class="btn" id="approveBtn" href="#">Approve</a>
-        <a class="btn secondary" id="editsBtn" href="#">Request edits</a>
-      </div>
-    </footer>
-  </article>
+  </div>
 
   <script>
     const recipientName = "Sejal Karki";
     const organizerName = "Bharat Rai";
-
-    // Locked details
     const dateText = "Feb 14";
     const timeText = "3:00 PM PST";
-
-    // Optional: WhatsApp number without + (e.g. 13105551234). Leave empty to use email.
     const whatsappNumber = "";
 
-    // Set badges
-    document.getElementById("dateBadge").textContent = dateText;
+    document.getElementById("org").textContent = organizerName;
+    document.getElementById("rec").textContent = recipientName;
     document.getElementById("timeBadge").textContent = timeText;
 
-    // --- Mode Toggle + Smart Approve ---
-    const modeBtn  = document.getElementById("modeBtn");
-    const modeHint = document.getElementById("modeHint");
-    const modeCopy = document.getElementById("modeCopy");
+    const stamp = document.getElementById("stamp");
+    const classLabel = document.getElementById("classLabel");
+    const modeBtn = document.getElementById("modeBtn");
 
     const approveBtn = document.getElementById("approveBtn");
-    const editsBtn   = document.getElementById("editsBtn");
-    const rsvpStamp  = document.getElementById("rsvpStamp");
+    const editsBtn = document.getElementById("editsBtn");
+    const fineNote = document.getElementById("fineNote");
 
-    const OPERATIONAL = {
+    const panelTitle = document.getElementById("panelTitle");
+    const panelBody = document.getElementById("panelBody");
+    const quoteBox = document.getElementById("quoteBox");
+
+    const tabs = Array.from(document.querySelectorAll(".tab"));
+
+    const OP = {
       key: "operational",
-      label: "Operational",
-      hint: "For compliance purposes.",
-      copy:
-`I’m carving out a clean pocket of the schedule for you.
-Santa Monica. You + Me.
-
-(We will pretend it is purely operational.)`,
+      classText: "CLASSIFIED: OPERATIONAL",
+      stamp: "PENDING REVIEW",
       approveLabel: "Approve hold",
       editsLabel: "Request edits",
-      stamp: "Pending RSVP"
+      fine: "Reply with RSVP yes/no, or edits. For the record, we may pretend it’s operational.",
+      content: {
+        summary:
+`A scheduled time block in Santa Monica.
+Organizer: ${organizerName}
+Attendee: ${recipientName}
+Scheduled: ${dateText} @ ${timeText}
+
+Purpose: allocate uninterrupted time.
+Notes: editable upon request.`,
+        evidence:
+`Evidence log:
+• Date selected: ${dateText}
+• Implications: noted (disputed).
+• Motivation: allegedly “purely operational.”`,
+        terms:
+`Terms (standard):
+1) RSVP yes/no
+2) Any edits or requests
+3) If delayed, rescheduling permitted (begrudgingly).`,
+        rsvp:
+`Choose a response path on the right.
+This is a hold — not a confession.`
+      },
+      quote: ""
     };
 
-    const INTENTIONAL = {
+    const IN = {
       key: "intentional",
-      label: "Intentional",
-      hint: "For honesty purposes.",
-      copy:
+      classText: "CLASSIFIED: INTENTIONAL",
+      stamp: "AWAITING VERDICT",
+      approveLabel: "Accept the date ✅",
+      editsLabel: "Counteroffer 😈",
+      fine: "Counteroffers are welcomed. Denial will be treated as flirtation.",
+      content: {
+        summary:
 `Dear Ms. Karki,
 
-Formally: yes — February 14th comes with implications,
-and I chose it on purpose.
+Yes — I picked February 14th with full awareness of its implications.
+This isn’t a scheduling error. It’s a decision.
 
-My intentions are romantic, specific, and directed at you.
-I want a night that’s unhurried. I want your laugh in person.
-And I want us one step closer to each other’s hearts.
+My intentions are not subtle:
+I want you.
+I want your time.
+I want a night that feels inevitable the moment it starts.
 
-We can call it “operational” for the paperwork…
-until we both stop pretending.
+We can stamp it “operational” for the paperwork.
+In practice, it’s a date — and I’m asking you seriously.
 
 — ${organizerName}`,
-      approveLabel: "Accept the date ✅",
-      editsLabel: "Negotiate terms ✍️",
-      stamp: "Awaiting your verdict"
+        evidence:
+`Evidence log (uncomfortably convincing):
+• You noticed the date immediately.
+• You requested “formal intentions.”
+• You used a signature and a postscript.
+Conclusion: you are not indifferent.
+
+Addendum:
+If we’re pretending it’s operational…
+you’re doing a terrible job.`,
+        terms:
+`Negotiation terms (binding):
+1) Start time: ______ (earlier buys us more trouble)
+2) Pace: slow enough to savor, fast enough to be reckless
+3) Trouble level: tasteful… until we forget to be tasteful
+4) Non-negotiable: you show up, and I get you all to myself
+
+Clause 5 (confidential):
+If you’re testing my nerve — noted.
+I have nerve.`,
+        rsvp:
+`You asked for my intentions.
+
+They’re on record.
+Now I want your answer.`
+      },
+      quote:
+`“Express your true intentions? … Are we acknowledging what this looks like,
+or shall we agree to pretend it’s purely operational?”
+— ${recipientName}`
     };
 
-    let currentMode = OPERATIONAL;
+    let mode = OP;
 
-    function setMode(mode){
-      currentMode = mode;
-
-      modeBtn.textContent = `Mode: ${mode.label}`;
-      modeBtn.setAttribute("aria-pressed", String(mode.key === "intentional"));
-      modeHint.textContent = mode.hint;
-
-      modeCopy.classList.remove("show");
-      requestAnimationFrame(() => {
-        modeCopy.textContent = mode.copy;
-        modeCopy.classList.add("show");
-      });
+    function setMode(next){
+      mode = next;
+      classLabel.textContent = mode.classText;
+      stamp.textContent = mode.stamp;
 
       approveBtn.textContent = mode.approveLabel;
       editsBtn.textContent = mode.editsLabel;
-      rsvpStamp.textContent = mode.stamp;
+      fineNote.textContent = mode.fine;
 
       localStorage.setItem("sm_mode", mode.key);
+      renderTab(getActiveTab());
     }
+
+    function getActiveTab(){
+      const active = tabs.find(t => t.getAttribute("aria-selected") === "true");
+      return active ? active.dataset.tab : "summary";
+    }
+
+    function renderTab(tabName){
+      panelTitle.textContent = tabName[0].toUpperCase() + tabName.slice(1);
+      panelBody.textContent = mode.content[tabName] || "";
+
+      if(mode.quote && (tabName === "evidence" || tabName === "summary")){
+        quoteBox.textContent = mode.quote;
+        quoteBox.classList.remove("hide");
+      } else {
+        quoteBox.classList.add("hide");
+      }
+    }
+
+    tabs.forEach(btn => {
+      btn.addEventListener("click", () => {
+        tabs.forEach(t => t.setAttribute("aria-selected", "false"));
+        btn.setAttribute("aria-selected", "true");
+        renderTab(btn.dataset.tab);
+      });
+    });
 
     function messageTemplate(type){
       const base =
-`Personal Time Block — Santa Monica
+`Santa Monica — Case SK/BR
 
 Attendee: ${recipientName}
 Organizer: ${organizerName}
 Scheduled: ${dateText} @ ${timeText}`;
 
-      if(currentMode.key === "intentional"){
+      if(mode.key === "intentional"){
         if(type === "approve"){
           return base + `
 
-Formally: I accept the implications.
 RSVP: Yes ✅
+Formally: I accept the implications.
 
-P.S. We can pretend it’s operational…
-until we don’t.`;
+P.S. I will not ask you to behave.
+P.P.S. I also will not behave.`;
         }
         return base + `
 
-RSVP: Requesting edits ✍️
-Terms to negotiate:
-1) Start time / pacing
-2) Level of trouble (tasteful)
-3) One non-negotiable: you.`;
+RSVP: Counteroffer 😈
+
+My terms:
+1) Start time: ______
+2) Place(s) I insist on: ______
+3) Trouble level: ______
+
+Addendum:
+If you’re trying to out-flirt an engineer, good luck.`;
       }
 
       if(type === "approve"){
@@ -487,7 +503,7 @@ Edits requested:
     function openMessage(type){
       const body = encodeURIComponent(messageTemplate(type));
       const subject = encodeURIComponent(
-        (currentMode.key === "intentional" ? "Formal Intentions — Santa Monica" : "Santa Monica Hold — RSVP") +
+        (mode.key === "intentional" ? "Formal Intentions — Verdict Requested" : "Santa Monica Hold — RSVP") +
         " — " + recipientName
       );
 
@@ -502,22 +518,19 @@ Edits requested:
     approveBtn.addEventListener("click", (e)=>{ e.preventDefault(); openMessage("approve"); });
     editsBtn.addEventListener("click", (e)=>{ e.preventDefault(); openMessage("edits"); });
 
-    // Restore mode (or allow “deep link” that auto-reveals truth)
-    const params = new URLSearchParams(window.location.search);
+    modeBtn.addEventListener("click", ()=>{
+      setMode(mode.key === "operational" ? IN : OP);
+    });
+
+    // Init (deep link + saved mode)
+    const params = new URLSearchParams(location.search);
     const saved = localStorage.getItem("sm_mode");
 
-    if(params.get("intent") === "truth"){
-      setMode(INTENTIONAL);
-    } else if(saved === "intentional"){
-      setMode(INTENTIONAL);
-    } else {
-      setMode(OPERATIONAL);
-    }
+    if(params.get("intent") === "truth") setMode(IN);
+    else if(saved === "intentional") setMode(IN);
+    else setMode(OP);
 
-    // Toggle mode on click
-    modeBtn.addEventListener("click", ()=>{
-      setMode(currentMode.key === "operational" ? INTENTIONAL : OPERATIONAL);
-    });
+    renderTab("summary");
   </script>
 </body>
 </html>
