@@ -3,183 +3,521 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Re: Personal Time Block — Clarification Requested</title>
-  <meta name="description" content="Operational is the beginning. Truth is the point." />
-  <link rel="stylesheet" href="./assets/style.css" />
+  <title>Sejal Karki — Santa Monica Hold</title>
+
+  <meta name="description" content="A scheduled time block in Santa Monica. Organizer: Bharat Rai. Attendee: Sejal Karki." />
+  <meta name="theme-color" content="#f2e8dc" />
+
+  <!-- Optional social cards (add assets/og.png if you want) -->
+  <!--
+  <meta property="og:title" content="Santa Monica Hold" />
+  <meta property="og:description" content="A scheduled time block (purely operational, of course)." />
+  <meta property="og:image" content="assets/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  -->
+
+  <!-- Optional favicon (add assets/favicon.svg if you want) -->
+  <!-- <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" /> -->
+
+  <style>
+    :root{
+      --paper:#fbf6ee;
+      --ink:#1f1b16;
+      --muted:#6f6257;
+      --rule:rgba(31,27,22,.18);
+      --accent:#8b6b4f;
+      --shadow: 0 18px 50px rgba(0,0,0,.12);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:28px;
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 800px at 15% 20%, rgba(139,107,79,.18), transparent 55%),
+        radial-gradient(900px 650px at 85% 75%, rgba(31,27,22,.10), transparent 55%),
+        #f2e8dc;
+      font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
+    }
+    .card{
+      width:min(920px, 100%);
+      background:linear-gradient(180deg, rgba(255,255,255,.62), rgba(255,255,255,.25)), var(--paper);
+      border:1px solid rgba(31,27,22,.14);
+      border-radius:22px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .grain:before{
+      content:"";
+      position:absolute; inset:0;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E");
+      mix-blend-mode:multiply;
+      pointer-events:none;
+    }
+    header{
+      padding:40px 34px 26px;
+      border-bottom:1px solid var(--rule);
+    }
+    .kicker{
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      font-size:12px;
+      color:var(--muted);
+    }
+    h1{
+      margin:10px 0 6px;
+      font-size:40px;
+      line-height:1.08;
+      font-weight:750;
+    }
+    .sub{
+      margin:0;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.65;
+      max-width:70ch;
+      white-space:pre-line;
+    }
+    .badgeRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:18px;
+    }
+    .badge{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size:12px;
+      letter-spacing:.02em;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(31,27,22,.20);
+      background:rgba(255,255,255,.45);
+      color:rgba(31,27,22,.88);
+    }
+
+    main{
+      padding:28px 34px 34px;
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap:22px;
+    }
+    @media (max-width: 860px){ main{grid-template-columns:1fr} }
+
+    .panel{
+      border:1px solid rgba(31,27,22,.14);
+      border-radius:18px;
+      background:rgba(255,255,255,.35);
+      padding:18px 18px 14px;
+    }
+    .panel h2{
+      margin:0 0 10px;
+      font-size:14px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:var(--muted);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .timeline{display:flex;flex-direction:column;gap:14px;margin-top:6px}
+    .item{
+      display:grid;
+      grid-template-columns: 110px 1fr;
+      gap:14px;
+      padding-top:10px;
+      border-top:1px dashed rgba(31,27,22,.18);
+    }
+    .item:first-child{border-top:none;padding-top:0}
+    .time{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:rgba(31,27,22,.72);
+      padding-top:2px;
+      white-space:nowrap;
+    }
+    .title{margin:0;font-size:18px;font-weight:700}
+    .desc{margin:6px 0 0;color:var(--muted);font-size:14px;line-height:1.55}
+    .fine{margin:10px 0 0;font-size:12px;color:rgba(111,98,87,.92);line-height:1.55}
+
+    .details{display:flex;flex-direction:column;gap:14px}
+    .kv{
+      display:flex;justify-content:space-between;gap:12px;
+      padding:10px 0;border-bottom:1px solid rgba(31,27,22,.10);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size:13px;color:rgba(31,27,22,.88);
+    }
+    .kv span:first-child{color:rgba(111,98,87,.95)}
+    .stamp{
+      margin-top:10px;
+      border:1px solid rgba(139,107,79,.55);
+      color:rgba(139,107,79,1);
+      display:inline-flex;
+      padding:10px 12px;
+      border-radius:12px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      background:rgba(255,255,255,.35);
+      align-self:flex-start;
+    }
+
+    footer{
+      padding:18px 34px 28px;
+      border-top:1px solid var(--rule);
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .smallprint{
+      color:rgba(111,98,87,.95);
+      font-size:12px;
+      line-height:1.55;
+      max-width:66ch;
+    }
+    .cta{
+      display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    .btn{
+      appearance:none;
+      border:1px solid rgba(31,27,22,.25);
+      background:rgba(31,27,22,.92);
+      color:var(--paper);
+      padding:10px 12px;
+      border-radius:12px;
+      font-size:13px;
+      letter-spacing:.02em;
+      cursor:pointer;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+    .btn.secondary{
+      background:rgba(255,255,255,.45);
+      color:rgba(31,27,22,.92);
+    }
+    .mono{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size:12px;
+      color:rgba(31,27,22,.75);
+    }
+    .divider{height:1px;background:rgba(31,27,22,.10);margin:12px 0}
+
+    .seal{
+      position:absolute;
+      top:18px; right:18px;
+      width:92px; height:92px;
+      border-radius:999px;
+      border:1px solid rgba(31,27,22,.18);
+      background:rgba(255,255,255,.35);
+      display:flex; align-items:center; justify-content:center;
+      transform:rotate(8deg);
+    }
+    .seal span{
+      text-align:center;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size:11px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:rgba(31,27,22,.72);
+      line-height:1.25;
+    }
+
+    /* subtle reveal animation for mode copy */
+    .reveal {
+      transform: translateY(6px);
+      opacity: 0;
+      transition: opacity .35s ease, transform .35s ease;
+    }
+    .reveal.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  </style>
 </head>
+
 <body>
-  <main class="wrap">
-    <article class="card grain">
+  <article class="card grain">
+    <div class="seal" aria-hidden="true"><span>SM<br/>Hold</span></div>
 
-      <!-- STAGE 0: RECEIPT -->
-      <section id="stageReceipt">
-        <header class="head">
-          <div class="kicker">Filed correspondence · February 14th</div>
-          <h1>Re: “Express your true intentions?”</h1>
-          <p class="sub">
-            Ms. Karki — inquiry received. You also asked which story we’re going with.
-          </p>
-        </header>
+    <header>
+      <div class="kicker">Personal Time Block · Santa Monica</div>
+      <h1>Sejal Karki — you’re booked.</h1>
 
-        <div class="body">
-          <div class="quote">
-            <p class="qLine"><span class="qMark">“</span>
-              Are we acknowledging what this looks like, or shall we agree to pretend it’s purely operational?
-              <span class="qMark">”</span>
-            </p>
-            <p class="qSig">— Sejal Karki</p>
-          </div>
+      <div class="badgeRow">
+        <div class="badge">Organizer: Bharat Rai</div>
+        <div class="badge">Attendee: Sejal Karki</div>
+        <div class="badge">Date: <span class="mono" id="dateBadge">Feb 14</span></div>
+        <div class="badge">Start: <span class="mono" id="timeBadge">3:00 PM PST</span></div>
+      </div>
 
-          <p class="copy">
-            Let’s begin where we’re “supposed” to begin.
-          </p>
+      <!-- Mode toggle row -->
+      <div class="badgeRow" style="margin-top:14px">
+        <button class="btn secondary" id="modeBtn" type="button" aria-pressed="false">
+          Mode: Operational
+        </button>
+        <div class="badge" id="modeHint">For compliance purposes.</div>
+      </div>
 
-          <div class="cta">
-            <button class="btn" id="goOperationalBtn">Proceed: Operational</button>
-            <button class="btn secondary" id="goNeedBtn">Go to what you need</button>
-          </div>
+      <!-- Dynamic mode copy -->
+      <p class="sub reveal" id="modeCopy" style="margin-top:14px"></p>
+    </header>
 
-          <p class="fine" id="receiptNote" aria-live="polite"></p>
-        </div>
-      </section>
+    <main>
+      <section class="panel">
+        <h2>Itinerary</h2>
 
-      <!-- STAGE 1: OPERATIONAL (INTENTIONALLY BORING) -->
-      <section id="stageOperational" hidden>
-        <header class="head">
-          <div class="kicker">Story 1 · purely operational</div>
-          <h2>Operational Mode</h2>
-          <p class="sub">Clean. Professional. Exactly what we both know this isn’t.</p>
-        </header>
-
-        <div class="body">
-          <div class="boringBox">
-            <div class="rowKV"><span>Objective</span><strong>Time together</strong></div>
-            <div class="rowKV"><span>Date</span><strong>February 14</strong></div>
-            <div class="rowKV"><span>Location</span><strong>Santa Monica</strong></div>
-            <div class="rowKV"><span>Scope</span><strong>Standard</strong></div>
-            <div class="rowKV"><span>Notes</span><strong>N/A</strong></div>
-          </div>
-
-          <p class="copy">
-            This is how things start. Not how they end.
-          </p>
-
-          <p class="copy subtle">
-            You and I both know this isn’t what you’re looking for.
-            There’s a difference between what you <em>want</em>… and what you <em>need</em>.
-          </p>
-
-          <div class="cta">
-            <button class="btn" id="unsealTruthBtn">Unseal: Truthful Mode</button>
-            <button class="btn secondary" id="backFromOperationalBtn">Back</button>
-          </div>
-
-          <p class="fine">
-            (If you click “Unseal,” you’re admitting you want the real answer.)
-          </p>
-        </div>
-      </section>
-
-      <!-- STAGE 2: TRUTHFUL MODE (QUESTIONS -> INTENTIONS) -->
-      <section id="stageTruth" hidden>
-        <header class="head">
-          <div class="kicker">Truthful mode · unsealed</div>
-          <h2>Alright. No pretending.</h2>
-          <p class="sub">
-            You wanted my intentions. Before I say them, I want you to look directly at yours.
-          </p>
-        </header>
-
-        <div class="body">
-          <div class="stepper" aria-label="Truth steps">
-            <div class="step active" data-s="1"><span class="dot"></span><span>1</span></div>
-            <div class="step" data-s="2"><span class="dot"></span><span>2</span></div>
-            <div class="step" data-s="3"><span class="dot"></span><span>3</span></div>
-            <div class="step" data-s="4"><span class="dot"></span><span>4</span></div>
-          </div>
-
-          <!-- Step 1 -->
-          <section class="panel" id="t1">
-            <div class="panelTitle">Step 1 — The last time</div>
-            <p class="copy">
-              Don’t overthink it. First honest answer.
-            </p>
-            <label class="lbl" for="x1">Last time we were together, what did you feel most?</label>
-            <input class="inp" id="x1" placeholder="seen / calm / electric / safe / wanted…" autocomplete="off" />
-          </section>
-
-          <!-- Step 2 -->
-          <section class="panel" id="t2" hidden>
-            <div class="panelTitle">Step 2 — Want vs need</div>
-            <p class="copy">
-              This is the part people skip. Don’t.
-            </p>
-            <label class="lbl" for="x2">In one word: what do you want right now?</label>
-            <input class="inp" id="x2" placeholder="fun / distraction / romance / certainty / closeness…" autocomplete="off" />
-            <label class="lbl" for="x3">In one word: what do you need?</label>
-            <input class="inp" id="x3" placeholder="peace / honesty / safety / depth / us…" autocomplete="off" />
-          </section>
-
-          <!-- Step 3 -->
-          <section class="panel" id="t3" hidden>
-            <div class="panelTitle">Step 3 — The admission</div>
-            <p class="copy">
-             Say it plainly.
-            </p>
-            <label class="lbl" for="x4">What are you afraid I’m going to do… if you let yourself feel it?</label>
-            <input class="inp" id="x4" placeholder="leave / get serious / ruin your calm / change things…" autocomplete="off" />
-          </section>
-
-          <!-- Step 4: Intentions -->
-          <section class="panel" id="t4" hidden>
-            <div class="panelTitle">Step 4 — My answer (finally)</div>
-
-            <div class="mirror" id="mirror"></div>
-
-            <div class="intent">
-              <p class="copy">
-                Here it is — clean and real:
-              </p>
-
-              <p><strong>I want you close.</strong></p>
-              <p><strong>I want your heart open with me.</strong></p>
-              <p><strong>I want to earn more of you than I had last time.</strong></p>
-
-              <p class="copy">
-                Not in theory. Not in hints. Not in “operational” language.
-              </p>
-
-              <div class="anchor">
-                <p><strong>Only if you want it.</strong></p>
-                <p><strong>You can always request edits.</strong></p>
-                <p><strong>You’re safe with me.</strong></p>
-              </div>
-
-              <p class="copy">
-                If you’re asking what this is… it’s me choosing you.
-                And asking you to take one step in my direction.
-              </p>
-
-              <p class="fine">
-                Your move, Ms. Karki.
-              </p>
+        <div class="timeline">
+          <div class="item">
+            <div class="time">+00:00</div>
+            <div>
+              <p class="title">Arrival + warm start</p>
+              <p class="desc">Coffee or a glass of wine near Montana / Ocean Ave. Easy start, good lighting, no hurry.</p>
+              <p class="fine">Deliverable: Relaxed smile, you letting me stare.</p>
             </div>
-          </section>
+          </div>
 
-          <p class="fine err" id="err" role="status" aria-live="polite"></p>
+          <div class="item">
+            <div class="time">+01:00</div>
+            <div>
+              <p class="title">Golden hour interlude</p>
+              <p class="desc">A slow walk toward the ocean. Santa Monica does the background work; we do the rest.</p>
+            </div>
+          </div>
 
-          <div class="cta">
-            <button class="btn" id="nextBtn">Next</button>
-            <button class="btn secondary" id="backBtn">Back</button>
-            <button class="btn secondary" id="resetBtn">Reseal</button>
+          <div class="item">
+            <div class="time">+02:15</div>
+            <div>
+              <p class="title">Quiet trouble</p>
+              <p class="desc">A small place that makes you lower your voice and stand closer without thinking.</p>
+              <p class="fine">If you reach for something first, I’ll remember.</p>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="time">+03:15</div>
+            <div>
+              <p class="title">Dinner</p>
+              <p class="desc">Reservation handled. You show up. I’ll be on my best behavior, at first.</p>
+              <p class="fine">If you’re especially distracting, we’ll “forget” the timeline.</p>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="time">+05:00</div>
+            <div>
+              <p class="title">Last stop</p>
+              <p class="desc">Dessert / nightcap / ocean air.</p>
+              <p class="fine">We’ll call it when the night says so.</p>
+            </div>
           </div>
         </div>
       </section>
 
-    </article>
-  </main>
+      <aside class="panel">
+        <h2>Booking details</h2>
 
-  <script src="./assets/config.js"></script>
-  <script src="./assets/script.js"></script>
+        <div class="details">
+          <div class="kv"><span>Neighborhood</span><strong>Santa Monica</strong></div>
+          <div class="kv"><span>Dress code</span><strong>Least</strong></div>
+          <div class="kv"><span>Mood</span><strong>Vintage romantic</strong></div>
+          <div class="kv"><span>End time</span><strong>Flexible</strong></div>
+        </div>
+
+        <div class="stamp" id="rsvpStamp">Pending RSVP</div>
+
+        <div class="divider"></div>
+
+        <p class="fine">
+          Reply with:
+          <span class="mono">1)</span> RSVP yes/no
+          <span class="mono">2)</span> any edits or requests.
+        </p>
+      </aside>
+    </main>
+
+    <footer>
+      <div class="smallprint">
+        <strong>Policy:</strong> This is a hold, and you can request edits.
+        We’ll pretend it’s purely operational.
+      </div>
+
+      <div class="cta">
+        <a class="btn" id="approveBtn" href="#">Approve</a>
+        <a class="btn secondary" id="editsBtn" href="#">Request edits</a>
+      </div>
+    </footer>
+  </article>
+
+  <script>
+    const recipientName = "Sejal Karki";
+    const organizerName = "Bharat Rai";
+
+    // Locked details
+    const dateText = "Feb 14";
+    const timeText = "3:00 PM PST";
+
+    // Optional: WhatsApp number without + (e.g. 13105551234). Leave empty to use email.
+    const whatsappNumber = "";
+
+    // Set badges
+    document.getElementById("dateBadge").textContent = dateText;
+    document.getElementById("timeBadge").textContent = timeText;
+
+    // --- Mode Toggle + Smart Approve ---
+    const modeBtn  = document.getElementById("modeBtn");
+    const modeHint = document.getElementById("modeHint");
+    const modeCopy = document.getElementById("modeCopy");
+
+    const approveBtn = document.getElementById("approveBtn");
+    const editsBtn   = document.getElementById("editsBtn");
+    const rsvpStamp  = document.getElementById("rsvpStamp");
+
+    const OPERATIONAL = {
+      key: "operational",
+      label: "Operational",
+      hint: "For compliance purposes.",
+      copy:
+`I’m carving out a clean pocket of the schedule for you.
+Santa Monica. You + Me.
+
+(We will pretend it is purely operational.)`,
+      approveLabel: "Approve hold",
+      editsLabel: "Request edits",
+      stamp: "Pending RSVP"
+    };
+
+    const INTENTIONAL = {
+      key: "intentional",
+      label: "Intentional",
+      hint: "For honesty purposes.",
+      copy:
+`Dear Ms. Karki,
+
+Formally: yes — February 14th comes with implications,
+and I chose it on purpose.
+
+My intentions are romantic, specific, and directed at you.
+I want a night that’s unhurried. I want your laugh in person.
+And I want us one step closer to each other’s hearts.
+
+We can call it “operational” for the paperwork…
+until we both stop pretending.
+
+— ${organizerName}`,
+      approveLabel: "Accept the date ✅",
+      editsLabel: "Negotiate terms ✍️",
+      stamp: "Awaiting your verdict"
+    };
+
+    let currentMode = OPERATIONAL;
+
+    function setMode(mode){
+      currentMode = mode;
+
+      modeBtn.textContent = `Mode: ${mode.label}`;
+      modeBtn.setAttribute("aria-pressed", String(mode.key === "intentional"));
+      modeHint.textContent = mode.hint;
+
+      modeCopy.classList.remove("show");
+      requestAnimationFrame(() => {
+        modeCopy.textContent = mode.copy;
+        modeCopy.classList.add("show");
+      });
+
+      approveBtn.textContent = mode.approveLabel;
+      editsBtn.textContent = mode.editsLabel;
+      rsvpStamp.textContent = mode.stamp;
+
+      localStorage.setItem("sm_mode", mode.key);
+    }
+
+    function messageTemplate(type){
+      const base =
+`Personal Time Block — Santa Monica
+
+Attendee: ${recipientName}
+Organizer: ${organizerName}
+Scheduled: ${dateText} @ ${timeText}`;
+
+      if(currentMode.key === "intentional"){
+        if(type === "approve"){
+          return base + `
+
+Formally: I accept the implications.
+RSVP: Yes ✅
+
+P.S. We can pretend it’s operational…
+until we don’t.`;
+        }
+        return base + `
+
+RSVP: Requesting edits ✍️
+Terms to negotiate:
+1) Start time / pacing
+2) Level of trouble (tasteful)
+3) One non-negotiable: you.`;
+      }
+
+      if(type === "approve"){
+        return base + `
+
+RSVP: Approved ✅
+Notes: purely operational (for the record).`;
+      }
+      return base + `
+
+RSVP: Requesting edits ✍️
+Edits requested:
+1)
+2)
+3)`;
+    }
+
+    function openMessage(type){
+      const body = encodeURIComponent(messageTemplate(type));
+      const subject = encodeURIComponent(
+        (currentMode.key === "intentional" ? "Formal Intentions — Santa Monica" : "Santa Monica Hold — RSVP") +
+        " — " + recipientName
+      );
+
+      if(whatsappNumber){
+        const url = "https://wa.me/" + whatsappNumber + "?text=" + body;
+        window.open(url, "_blank");
+      } else {
+        window.location.href = `mailto:?subject=${subject}&body=${body}`;
+      }
+    }
+
+    approveBtn.addEventListener("click", (e)=>{ e.preventDefault(); openMessage("approve"); });
+    editsBtn.addEventListener("click", (e)=>{ e.preventDefault(); openMessage("edits"); });
+
+    // Restore mode (or allow “deep link” that auto-reveals truth)
+    const params = new URLSearchParams(window.location.search);
+    const saved = localStorage.getItem("sm_mode");
+
+    if(params.get("intent") === "truth"){
+      setMode(INTENTIONAL);
+    } else if(saved === "intentional"){
+      setMode(INTENTIONAL);
+    } else {
+      setMode(OPERATIONAL);
+    }
+
+    // Toggle mode on click
+    modeBtn.addEventListener("click", ()=>{
+      setMode(currentMode.key === "operational" ? INTENTIONAL : OPERATIONAL);
+    });
+  </script>
 </body>
 </html>
