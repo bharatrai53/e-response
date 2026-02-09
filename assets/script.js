@@ -167,3 +167,10 @@
   // Init
   show("receipt");
 })();
+console.log("✅ script.js loaded");
+console.log({
+  unsealBtn: !!document.getElementById("unsealBtn"),
+  shyBtn: !!document.getElementById("shyBtn"),
+  nextBtn: !!document.getElementById("nextBtn"),
+  stageReceipt: !!document.getElementById("stageReceipt"),
+});
