@@ -6,6 +6,7 @@
   <title>Santa Monica — File SK/BR</title>
   <meta name="description" content="A classified time block in Santa Monica." />
   <meta name="theme-color" content="#f2e8dc" />
+
   <style>
     :root{
       --paper:#fbf6ee;
@@ -32,6 +33,7 @@
         #f2e8dc;
       font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
     }
+
     .wrap{
       width:min(980px, 100%);
       border-radius:22px;
@@ -95,6 +97,7 @@
       align-items:flex-end;
       gap:10px;
     }
+
     .stamp{
       border:1px solid rgba(139,107,79,.55);
       color:rgba(139,107,79,1);
@@ -107,51 +110,53 @@
       text-transform:uppercase;
       background:rgba(255,255,255,.35);
     }
-    .toggleRow{
-      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      font-size:12px;
-      color:rgba(31,27,22,.88);
+
+    /* HERO segmented control */
+    .segWrap{
+      display:inline-flex;
+      border:1px solid rgba(31,27,22,.22);
+      background:rgba(255,255,255,.38);
+      border-radius:14px;
+      padding:4px;
+      gap:4px;
     }
-    .btn{
-      appearance:none;
-      border:1px solid rgba(31,27,22,.25);
-      background:rgba(31,27,22,.92);
-      color:var(--paper);
-      padding:10px 12px;
-      border-radius:12px;
+    .seg{
+      border:0;
+      background:transparent;
+      color:rgba(31,27,22,.86);
+      padding:10px 14px;
+      border-radius:11px;
+      cursor:pointer;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       font-size:13px;
       letter-spacing:.02em;
-      cursor:pointer;
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
+      white-space:nowrap;
+    }
+    .seg[aria-pressed="true"]{
+      background:rgba(31,27,22,.92);
+      color:var(--paper);
+    }
+    .segHint{
+      max-width:320px;
+      text-align:right;
+      color:rgba(111,98,87,.95);
+      font-size:12px;
+      line-height:1.45;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
-    .btn.secondary{
-      background:rgba(255,255,255,.45);
-      color:rgba(31,27,22,.92);
-    }
-    .classChip{
-      border:1px solid rgba(31,27,22,.20);
-      background:rgba(255,255,255,.35);
-      padding:8px 10px;
-      border-radius:999px;
-    }
-    .classChip b{ letter-spacing:.12em; text-transform:uppercase; font-size:11px; }
 
     nav{
       padding:12px 16px;
       border-bottom:1px solid var(--rule);
       display:flex; gap:10px; flex-wrap:wrap;
+      justify-content:center;
     }
     .tab{
       border:1px solid rgba(31,27,22,.18);
       background:rgba(255,255,255,.38);
       color:rgba(31,27,22,.90);
-      padding:10px 12px;
-      border-radius:12px;
+      padding:10px 14px;
+      border-radius:999px;
       cursor:pointer;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       font-size:13px;
@@ -196,7 +201,6 @@
     .quote{
       margin-top:14px;
       border-left:3px solid rgba(139,107,79,.45);
-      padding-left:12px;
       background: var(--danger);
       border-radius:12px;
       padding:12px 12px 12px 14px;
@@ -205,6 +209,7 @@
       line-height:1.6;
       white-space:pre-line;
     }
+    .hide{ display:none; }
 
     .side h3{
       margin:0 0 8px;
@@ -227,6 +232,26 @@
       display:flex; gap:10px; flex-wrap:wrap;
       margin-top:14px;
     }
+    .btn{
+      appearance:none;
+      border:1px solid rgba(31,27,22,.25);
+      background:rgba(31,27,22,.92);
+      color:var(--paper);
+      padding:10px 12px;
+      border-radius:12px;
+      font-size:13px;
+      letter-spacing:.02em;
+      cursor:pointer;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    .btn.secondary{
+      background:rgba(255,255,255,.45);
+      color:rgba(31,27,22,.92);
+    }
     .fine{
       margin:12px 0 0;
       font-size:12px;
@@ -235,7 +260,6 @@
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
     .divider{height:1px;background:rgba(31,27,22,.10);margin:14px 0}
-    .hide{ display:none; }
   </style>
 </head>
 
@@ -256,26 +280,25 @@
       <div class="right">
         <div class="stamp" id="stamp">PENDING REVIEW</div>
 
-        <div class="toggleRow">
-          <div class="classChip"><b id="classLabel">CLASSIFIED: OPERATIONAL</b></div>
-          <button class="btn secondary" id="modeBtn" type="button" aria-pressed="false">Toggle</button>
+        <div class="segWrap" role="group" aria-label="Classification">
+          <button class="seg" id="segOp" type="button" aria-pressed="true">Operational</button>
+          <button class="seg" id="segIn" type="button" aria-pressed="false">Intentional</button>
         </div>
+
+        <div class="segHint" id="segHint">A clean time block. Editable upon request.</div>
       </div>
     </header>
 
     <nav aria-label="Sections">
-      <button class="tab" data-tab="summary" aria-selected="true">Summary</button>
-      <button class="tab" data-tab="evidence" aria-selected="false">Evidence</button>
-      <button class="tab" data-tab="terms" aria-selected="false">Terms</button>
-      <button class="tab" data-tab="rsvp" aria-selected="false">RSVP</button>
+      <button class="tab" data-tab="plan" aria-selected="true">The Plan</button>
+      <button class="tab" data-tab="truth" aria-selected="false">The Truth</button>
+      <button class="tab" data-tab="move" aria-selected="false">Your Move</button>
     </nav>
 
     <main>
       <section class="panel">
-        <h2 id="panelTitle">Summary</h2>
-
+        <h2 id="panelTitle">The Plan</h2>
         <p class="content" id="panelBody"></p>
-
         <div class="quote hide" id="quoteBox"></div>
       </section>
 
@@ -306,6 +329,8 @@
     const organizerName = "Bharat Rai";
     const dateText = "Feb 14";
     const timeText = "3:00 PM PST";
+
+    // Optional: WhatsApp number without + (e.g. 13105551234). Leave empty to use email.
     const whatsappNumber = "";
 
     document.getElementById("org").textContent = organizerName;
@@ -313,8 +338,9 @@
     document.getElementById("timeBadge").textContent = timeText;
 
     const stamp = document.getElementById("stamp");
-    const classLabel = document.getElementById("classLabel");
-    const modeBtn = document.getElementById("modeBtn");
+    const segOp = document.getElementById("segOp");
+    const segIn = document.getElementById("segIn");
+    const segHint = document.getElementById("segHint");
 
     const approveBtn = document.getElementById("approveBtn");
     const editsBtn = document.getElementById("editsBtn");
@@ -328,52 +354,53 @@
 
     const OP = {
       key: "operational",
-      classText: "CLASSIFIED: OPERATIONAL",
       stamp: "PENDING REVIEW",
       approveLabel: "Approve hold",
       editsLabel: "Request edits",
       fine: "Reply with RSVP yes/no, or edits. For the record, we may pretend it’s operational.",
+      hint: "A clean time block. Editable upon request.",
       content: {
-        summary:
-`A scheduled time block in Santa Monica.
-Organizer: ${organizerName}
-Attendee: ${recipientName}
-Scheduled: ${dateText} @ ${timeText}
+        plan:
+`Plan:
+• ${dateText} @ ${timeText}
+• Santa Monica
+• Unhurried time, minimal friction
 
-Purpose: allocate uninterrupted time.
-Notes: editable upon request.`,
-        evidence:
-`Evidence log:
-• Date selected: ${dateText}
-• Implications: noted (disputed).
-• Motivation: allegedly “purely operational.”`,
-        terms:
-`Terms (standard):
-1) RSVP yes/no
-2) Any edits or requests
-3) If delayed, rescheduling permitted (begrudgingly).`,
-        rsvp:
-`Choose a response path on the right.
-This is a hold — not a confession.`
+Status: reserved for ${recipientName}.`,
+        truth:
+`Truth (for the record):
+This is a hold. It can be edited.
+It is absolutely “purely operational.”`,
+        move:
+`Your move:
+Approve = yes.
+Request edits = counteroffer.`
       },
       quote: ""
     };
 
     const IN = {
       key: "intentional",
-      classText: "CLASSIFIED: INTENTIONAL",
       stamp: "AWAITING VERDICT",
       approveLabel: "Accept the date ✅",
       editsLabel: "Counteroffer 😈",
       fine: "Counteroffers are welcomed. Denial will be treated as flirtation.",
+      hint: "Intent on record. Denial will be treated as flirtation.",
       content: {
-        summary:
-`Dear Ms. Karki,
+        plan:
+`Plan:
+• ${dateText} @ ${timeText}
+• Santa Monica
+• Start easy → end whenever the night says so
 
-Yes — I picked February 14th with full awareness of its implications.
-This isn’t a scheduling error. It’s a decision.
+I’ll handle reservations.
+You just show up.`,
+        truth:
+`Truth:
 
-My intentions are not subtle:
+Yes, the date is intentional.
+No, I’m not hiding behind logistics.
+
 I want you.
 I want your time.
 I want a night that feels inevitable the moment it starts.
@@ -382,44 +409,47 @@ We can stamp it “operational” for the paperwork.
 In practice, it’s a date — and I’m asking you seriously.
 
 — ${organizerName}`,
-        evidence:
-`Evidence log (uncomfortably convincing):
-• You noticed the date immediately.
-• You requested “formal intentions.”
-• You used a signature and a postscript.
-Conclusion: you are not indifferent.
+        move:
+`Your move:
 
-Addendum:
-If we’re pretending it’s operational…
-you’re doing a terrible job.`,
-        terms:
-`Negotiation terms (binding):
-1) Start time: ______ (earlier buys us more trouble)
-2) Pace: slow enough to savor, fast enough to be reckless
-3) Trouble level: tasteful… until we forget to be tasteful
-4) Non-negotiable: you show up, and I get you all to myself
-
-Clause 5 (confidential):
-If you’re testing my nerve — noted.
-I have nerve.`,
-        rsvp:
-`You asked for my intentions.
-
-They’re on record.
-Now I want your answer.`
+Accept = you’re saying yes to what this is.
+Counteroffer = you’re negotiating details, not the intent.`
       },
       quote:
 `“Express your true intentions? … Are we acknowledging what this looks like,
-or shall we agree to pretend it’s purely operational?”
+or shall we agree to pretend it's purely operational?”
 — ${recipientName}`
     };
 
     let mode = OP;
 
+    function getActiveTab(){
+      const active = tabs.find(t => t.getAttribute("aria-selected") === "true");
+      return active ? active.dataset.tab : "plan";
+    }
+
+    function renderTab(tabName){
+      const titles = { plan: "The Plan", truth: "The Truth", move: "Your Move" };
+      panelTitle.textContent = titles[tabName] || "The Plan";
+      panelBody.textContent = mode.content[tabName] || "";
+
+      if(mode.key === "intentional" && tabName === "truth" && mode.quote){
+        quoteBox.textContent = mode.quote;
+        quoteBox.classList.remove("hide");
+      } else {
+        quoteBox.classList.add("hide");
+      }
+    }
+
     function setMode(next){
       mode = next;
-      classLabel.textContent = mode.classText;
+
       stamp.textContent = mode.stamp;
+
+      const isIntentional = mode.key === "intentional";
+      segOp.setAttribute("aria-pressed", String(!isIntentional));
+      segIn.setAttribute("aria-pressed", String(isIntentional));
+      segHint.textContent = mode.hint;
 
       approveBtn.textContent = mode.approveLabel;
       editsBtn.textContent = mode.editsLabel;
@@ -429,23 +459,6 @@ or shall we agree to pretend it’s purely operational?”
       renderTab(getActiveTab());
     }
 
-    function getActiveTab(){
-      const active = tabs.find(t => t.getAttribute("aria-selected") === "true");
-      return active ? active.dataset.tab : "summary";
-    }
-
-    function renderTab(tabName){
-      panelTitle.textContent = tabName[0].toUpperCase() + tabName.slice(1);
-      panelBody.textContent = mode.content[tabName] || "";
-
-      if(mode.quote && (tabName === "evidence" || tabName === "summary")){
-        quoteBox.textContent = mode.quote;
-        quoteBox.classList.remove("hide");
-      } else {
-        quoteBox.classList.add("hide");
-      }
-    }
-
     tabs.forEach(btn => {
       btn.addEventListener("click", () => {
         tabs.forEach(t => t.setAttribute("aria-selected", "false"));
@@ -453,6 +466,9 @@ or shall we agree to pretend it’s purely operational?”
         renderTab(btn.dataset.tab);
       });
     });
+
+    segOp.addEventListener("click", ()=> setMode(OP));
+    segIn.addEventListener("click", ()=> setMode(IN));
 
     function messageTemplate(type){
       const base =
@@ -518,11 +534,7 @@ Edits requested:
     approveBtn.addEventListener("click", (e)=>{ e.preventDefault(); openMessage("approve"); });
     editsBtn.addEventListener("click", (e)=>{ e.preventDefault(); openMessage("edits"); });
 
-    modeBtn.addEventListener("click", ()=>{
-      setMode(mode.key === "operational" ? IN : OP);
-    });
-
-    // Init (deep link + saved mode)
+    // Init: deep link + saved mode
     const params = new URLSearchParams(location.search);
     const saved = localStorage.getItem("sm_mode");
 
@@ -530,7 +542,7 @@ Edits requested:
     else if(saved === "intentional") setMode(IN);
     else setMode(OP);
 
-    renderTab("summary");
+    renderTab("plan");
   </script>
 </body>
 </html>
